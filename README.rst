@@ -20,8 +20,8 @@ dmp-cli
 A command-line-interface for `django-mako-plus`_.
 
 
-* Documentation: https://knowsuchagency.github.io/dmp_cli
-* Source: https://github.com/knowsuchagency/dmp_cli
+* Documentation: https://knowsuchagency.github.io/dmp-cli
+* Source: https://github.com/knowsuchagency/dmp-cli
 
 
 Installation
