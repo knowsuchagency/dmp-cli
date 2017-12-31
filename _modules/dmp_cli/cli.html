@@ -1,0 +1,170 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>dmp_cli.cli &#8212; dmp-cli 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for dmp_cli.cli</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Usage:  [OPTIONS] COMMAND [ARGS]...</span>
+
+<span class="sd">  The django-mako-plus cli.</span>
+
+<span class="sd">Options:</span>
+<span class="sd">  --help  Show this message and exit.</span>
+
+<span class="sd">Commands:</span>
+<span class="sd">  new  Create a new project or app.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">subprocess</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">pkg_resources</span>
+<span class="kn">import</span> <span class="nn">crayons</span>
+<span class="kn">import</span> <span class="nn">click</span>
+
+
+<span class="nd">@click</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;The django-mako-plus cli.&quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+
+<span class="nd">@main</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">new</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Create a new project or app.&quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+
+<span class="nd">@new</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">project</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create a new django-mako-plus project.&quot;&quot;&quot;</span>
+    <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="s1">&#39;Creating new project &#39;</span> <span class="o">+</span> <span class="n">crayons</span><span class="o">.</span><span class="n">magenta</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">bold</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+    <span class="n">template_path</span> <span class="o">=</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span><span class="s1">&#39;django_mako_plus&#39;</span><span class="p">,</span> <span class="s1">&#39;project_template&#39;</span><span class="p">)</span>
+
+    <span class="n">sp</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span>
+        <span class="s1">&#39;python3 -m django startproject --template=</span><span class="si">{path}</span><span class="s1"> </span><span class="si">{name}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">template_path</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">),</span>
+        <span class="n">shell</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+
+    <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">crayons</span><span class="o">.</span><span class="n">green</span><span class="p">(</span><span class="s1">&#39;Successfully created &#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">crayons</span><span class="o">.</span><span class="n">magenta</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">bold</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+
+<span class="nd">@new</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">app</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create a new django-mako-plus app.&quot;&quot;&quot;</span>
+    <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="s1">&#39;Creating new app     &#39;</span> <span class="o">+</span> <span class="n">crayons</span><span class="o">.</span><span class="n">magenta</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">bold</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+    <span class="n">template_path</span> <span class="o">=</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span><span class="s1">&#39;django_mako_plus&#39;</span><span class="p">,</span> <span class="s1">&#39;app_template&#39;</span><span class="p">)</span>
+
+    <span class="n">sp</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span>
+        <span class="s1">&#39;python3 manage.py startapp --template=</span><span class="si">{path}</span><span class="s1"> --extension=py,htm,html </span><span class="si">{name}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">template_path</span><span class="p">,</span>
+                                                                                             <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">),</span>
+        <span class="n">shell</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+
+    <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">crayons</span><span class="o">.</span><span class="n">green</span><span class="p">(</span><span class="s1">&#39;Successfully created &#39;</span> <span class="o">+</span> <span class="n">crayons</span><span class="o">.</span><span class="n">magenta</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">bold</span><span class="o">=</span><span class="kc">True</span><span class="p">)))</span>
+
+
+
+<div class="viewcode-block" id="transform_module_text"><a class="viewcode-back" href="../../dmp_cli.html#dmp_cli.cli.transform_module_text">[docs]</a><span class="k">def</span> <span class="nf">transform_module_text</span><span class="p">(</span><span class="n">matchobj</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return the text from the module with the docstring generated by click prepended to it.&quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">click</span><span class="o">.</span><span class="n">Context</span><span class="p">(</span><span class="n">main</span><span class="p">)</span> <span class="k">as</span> <span class="n">ctx</span><span class="p">:</span>
+        <span class="n">docstring</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">linesep</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;&quot;&quot;&quot;&#39;</span><span class="p">,</span> <span class="n">ctx</span><span class="o">.</span><span class="n">get_help</span><span class="p">(),</span> <span class="s1">&#39;&quot;&quot;&quot;&#39;</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">docstring</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">linesep</span> <span class="o">+</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">matchobj</span><span class="o">.</span><span class="n">groups</span><span class="p">()[</span><span class="mi">1</span><span class="p">:])</span></div>
+
+
+<span class="c1"># replace this module&#39;s docstring with the one generated from top-level cli entrypoint</span>
+<span class="n">transformed_module_text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
+    <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(.*?)(from|import)(.*)&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span><span class="p">),</span>
+    <span class="n">transform_module_text</span><span class="p">,</span>
+    <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="k">with</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">this_module</span><span class="p">:</span>
+    <span class="n">this_module</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">transformed_module_text</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Stephan Fitzpatrick.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
