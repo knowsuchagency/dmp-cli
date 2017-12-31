@@ -1,0 +1,28 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+
+
+[packages]
+
+attrs = "*"
+click = "*"
+django-mako-plus = "*"
+crayons = "*"
+
+
+[dev-packages]
+
+bumpversion = "*"
+coverage = "*"
+cryptography = "*"
+"flake8" = "*"
+pytest = "*"
+pytest-runner = "*"
+pyyaml = "*"
+sphinx = "*"
+tox = "*"
+sphinx-autodoc-typehints = "*"
+wheel = "*"
+"fabric3" = "*"

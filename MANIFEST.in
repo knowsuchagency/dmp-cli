@@ -1,0 +1,11 @@
+include LICENSE
+include README.rst
+include Pipfile
+include Pipfile.lock
+
+graft dmp_cli
+graft tests
+graft docs
+
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
