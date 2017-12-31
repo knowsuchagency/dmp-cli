@@ -4,6 +4,12 @@ from fabric.api import *
 
 
 @task
+def test_readme_rst():
+    """Test README.rst to ensure it will render correctly in warehouse."""
+    local('python setup.py check -r -s')
+
+
+@task
 def clean_build():
     """Remove build artifacts."""
     local('rm -fr build/')
@@ -141,6 +147,7 @@ def dist():
 @task
 def release():
     """Package and upload a release to pypi."""
+    test_readme_rst()
     clean()
     test_all()
     publish_docs()
