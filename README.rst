@@ -25,7 +25,7 @@ A command-line-interface for `django-mako-plus`_.
 
 
 Installation
---------
+------------
 
 ::
 
