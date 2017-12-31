@@ -3,14 +3,14 @@ dmp-cli
 =======
 
 
-.. image:: https://img.shields.io/pypi/v/dmp_cli.svg
-        :target: https://pypi.python.org/pypi/dmp_cli
+.. image:: https://img.shields.io/pypi/v/dmp-cli.svg
+        :target: https://pypi.python.org/pypi/dmp-cli
 
-.. image:: https://img.shields.io/travis/knowsuchagency/dmp_cli.svg
-        :target: https://travis-ci.org/knowsuchagency/dmp_cli
+.. image:: https://img.shields.io/travis/knowsuchagency/dmp-cli.svg
+        :target: https://travis-ci.org/knowsuchagency/dmp-cli
 
-.. image:: https://pyup.io/repos/github/knowsuchagency/dmp_cli/shield.svg
-     :target: https://pyup.io/repos/github/knowsuchagency/dmp_cli/
+.. image:: https://pyup.io/repos/github/knowsuchagency/dmp-cli/shield.svg
+     :target: https://pyup.io/repos/github/knowsuchagency/dmp-cli/
      :alt: Updates
 
 .. image:: https://img.shields.io/github/license/mashape/apistatus.svg
