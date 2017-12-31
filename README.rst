@@ -3,8 +3,8 @@ dmp-cli
 =======
 
 
-.. image:: https://img.shields.io/pypi/v/dmp_cli.svg
-        :target: https://pypi.python.org/pypi/dmp_cli
+.. image:: https://img.shields.io/pypi/v/dmp-cli.svg
+        :target: https://pypi.python.org/pypi/dmp-cli
 
 .. image:: https://img.shields.io/travis/knowsuchagency/dmp-cli.svg
         :target: https://travis-ci.org/knowsuchagency/dmp-cli
