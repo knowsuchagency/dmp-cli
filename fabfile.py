@@ -151,8 +151,8 @@ def release():
     clean()
     test_all()
     publish_docs()
-    local('python setup.py sdist upload')
-    local('python setup.py bdist_wheel upload')
+    local('python setup.py sdist bdist_wheel')
+    local('twine upload dist/*')
 
 
 @singledispatch
